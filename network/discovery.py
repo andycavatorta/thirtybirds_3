@@ -63,6 +63,7 @@ class MulticastResponder(threading.Thread):
     def run(self):
         while True:
             message_json = self.receive_socket.recv(1024)
+            print "MulticastResponder", message_json
             message_d = yaml.safe_load(message_json)
             remote_ip = message_d["ip"]
             message_d["status"] = "device_discovered"
@@ -90,6 +91,7 @@ class MulticastCallerSend(threading.Thread):
         self.active = val
     def run(self):
         while True:
+            print "MulticastCallerSend", self.active, self.message_json, self.multicast_group_address, self.listener_port
             if self.active == True:
                 self.multicast_socket.sendto(self.message_json, (self.multicast_group_address, self.listener_port))
             time.sleep(self.heartbeat_interval)
@@ -107,6 +109,7 @@ class MulticastCallerReceive(threading.Thread):
     def run(self):
         while True:
             message_json = self.listen_socket.recv()
+            print "MulticastCallerReceive", message_json
             message_d = yaml.safe_load(message_json)
             message_d["status"] = "device_discovered"
             self.caller_send.set_active(False)
