@@ -31,7 +31,7 @@ def status_callback(msg):
 
 network_connection.init(
         network_info.getHostName(), 
-        network.CONNECTION_ROLE_CLIENT, 
+        network.CONNECTION_ROLE_SERVER, 
         settings.Network.pubsub_pub_port, 
         network.DISCOVERY_METHOD_MULTICAST, 
         {

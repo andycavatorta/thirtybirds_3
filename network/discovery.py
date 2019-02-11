@@ -208,6 +208,7 @@ def init(
         status_callback,
         heartbeat_interval = 10
     ):
+    print "role=",role
     return Discovery(
         hostname,
         role,
