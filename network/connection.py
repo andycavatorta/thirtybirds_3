@@ -99,7 +99,7 @@ class Connection(threading.Thread):
                     self.publishers[publisher_hostname]["connected"] = alive
                     if alive == False and self.role == network.CONNECTION_ROLE_CLIENT: # if a publisher has just come back online.
                         self.discovery.begin()
-            time.sleep(15)
+            time.sleep(10)
     
 def init(
         hostname, # the hostname of this computer
