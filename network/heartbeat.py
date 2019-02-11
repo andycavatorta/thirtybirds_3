@@ -17,7 +17,7 @@ class Publisher():
         self.timeout = timeout
         self.last_heartbeat = time.time() - (2 * self.timeout )
     def check_if_alive(self):
-        print "Network.heartbeat.Publisher.check_if_alive"
+        print "Network.heartbeat.Publisher.check_if_alive", time.time(), self.timeout, self.last_heartbeat
         return True if time.time() - self.timeout < self.last_heartbeat else False
     def record_heartbeat(self):
         print "Network.heartbeat.Publisher.record_heartbeat"
