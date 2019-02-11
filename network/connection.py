@@ -69,7 +69,7 @@ class Connection(threading.Thread):
             self.pubsub
             )
     def local_discovery_status_callback(self,message): # called when remote connection is discovered
-        #time.sleep(0.1) # what's this race condition about?
+        time.sleep(0.1) # what's this race condition about?
         if hasattr(self, "heartbeat"): # under what circumstances would self not have a 'heartbeat' attribute?
             if message["status"] == network.DISCOVERY_STATUS_FOUND:
                 self.heartbeat.subscribe(message["hostname"])
