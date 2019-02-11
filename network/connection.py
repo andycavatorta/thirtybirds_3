@@ -20,13 +20,14 @@ my_connection = network.connection(
 #########################################
 ######## IMPORTS, PATHS, GLOBALS ########
 #########################################
-import discovery # manages network discovery
-#import heartbeat # manages the detection of disconnection
-import pubsub # manages pubsub behaviors
 #import intero # manages system interoception and messaging
 import threading
 import time
+
+import discovery # manages network discovery
+import heartbeat # manages the detection of disconnection
 import network
+import pubsub # manages pubsub behaviors
 
 class Connection(threading.Thread):
     def __init__(
@@ -63,17 +64,15 @@ class Connection(threading.Thread):
             pubsub_pub_port, 
             self.pubsub_callback
             )
-        """
         self.heartbeat = heartbeat.init(
             hostname,
             self.pubsub
             )
-        """
     def local_discovery_status_callback(self,message): # called when remote connection is discovered
         #time.sleep(0.1) # what's this race condition about?
-        #if hasattr(self, "heartbeat"): # under what circumstances would self not have a 'heartbeat' attribute?
+        if hasattr(self, "heartbeat"): # under what circumstances would self not have a 'heartbeat' attribute?
         if message["status"] == network.DISCOVERY_STATUS_FOUND:
-            #self.heartbeat.subscribe(message["hostname"])
+            self.heartbeat.subscribe(message["hostname"])
             self.pubsub.connect_to_publisher(message["hostname"], message["ip"], self.pubsub_pub_port)
             self.pubsub.subscribe_to_topic("__heartbeat__")
             self.publishers[message["hostname"]] = {"connected":False} # connected is not redundant here.  we use its state to detect changes to heartbeat status
@@ -94,8 +93,8 @@ class Connection(threading.Thread):
     def run(self):
         while True:
             for publisher_hostname,val in self.publishers.items():# loop through all known publishers, check live status
-                #alive = self.heartbeat.check_if_alive(publisher_hostname)
-                #print "Network.Manager.run", publisher_hostname, alive
+                alive = self.heartbeat.check_if_alive(publisher_hostname)
+                print "Network.Manager.run", publisher_hostname, alive
                 if self.publishers[publisher_hostname]["connected"] != alive: # detect a change is heartbeat status
                     self.publishers[publisher_hostname]["connected"] = alive
                     if alive == False and self.role == network.CONNECTION_ROLE_CLIENT: # if a publisher has just come back online.
