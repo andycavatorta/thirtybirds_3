@@ -56,9 +56,13 @@ class PubSub(threading.Thread):
         self.sendqueue.add_to_queue(topic, msg)
 
     def connect_to_publisher(self, hostname, remote_ip, remote_port):
-        if hostname not in self.subscriptions:
+        if hostname in self.subscriptions:
+            return False
+        else:
             self.subscriptions[hostname] = Subscription(hostname, remote_ip, remote_port)
             self.sub_socket.connect("tcp://%s:%s" % (remote_ip, remote_port))
+            return True
+
 
     def subscribe_to_topic(self, topic):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, topic)
