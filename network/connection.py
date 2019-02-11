@@ -79,6 +79,7 @@ class Connection(threading.Thread):
         self.status_callback(message)
 
     def pubsub_callback(self, message, host):
+        print "++++++++ pubsub_callback", message, host
         if message == "__heartbeat__":
             self.heartbeat.record_heartbeat(host)
         else:
