@@ -1,0 +1,129 @@
+DESIGN IDEAS:
+
+thirtybirds is a platform
+thirtybirds is a system that simplifies using many small computers, with each handling a specific piece of hardware
+thirtybirds is a convenient abstraction layer for working with sensors, actuators, and other hardware.
+
+
+must use python 3
+standardize on Ubuntu/PC and Raspian/RPi for now.
+standardize on GitHub for now
+
+
+install script:
+    install libraries with apt
+    create vm?
+    create ssh keys
+    create config file outline?
+
+
+multiprocessing and multithreading:
+    figure out good distribution of processes
+        can tb run all in one 
+    process and interact with main program through interprocess comms?
+
+====== S T R U C T U R E ======
+
+adapters:
+    include whatever installers/libraries are needed
+
+config
+    is config a dir instead?  This allows manual and dynamic files.
+
+clock
+    synchrony
+    timers
+    triggers
+
+gui
+    server-side hooks for gui functions
+    how to handle security?
+
+networking:
+    email
+    ssh
+    connection
+    discovery
+        caller
+        listener
+    pubsub
+        publisher
+        subscriber
+    connection_monitor
+    security:
+        how is security more generally useful - how to solve the general problem for general future solutions?
+        nodes must authenticate with each other
+            ssh keys?
+        authenticate when connections are created but not after
+        the list of nodes is fixed
+        runs as tb user with sudo priviliges
+    status
+        local_ip
+        global_ip
+        hostname
+        ip address
+        wifi_strength
+        ping_time
+        connection_uptime
+        heartbeat_errors
+
+system
+    system_reboot
+    system_shutdown
+    status
+        platform
+        core_temp
+        core_voltage
+        CPU_load
+        system_disk_space
+        memory_free
+        system_uptime
+
+logging
+    exception reporting
+        exception reporting is as automatic as possible
+        everything that should be reported is in the form of an exception
+            use custom exceptions where needed
+        forward all exceptions to controller or to dashboard
+            timestamp
+            hostname
+            file path
+            classname ( if applicable )
+            function ( if applicable )
+            line number
+            exception type
+            exception message
+            traceback
+
+    execution tracing
+
+    profiling
+
+
+updates
+    how to simply manage all types of updates?
+        github
+        bash_commands
+        apt / os_libraries ( these are different from bash_commands )
+        file_sync
+        fpga_nets
+        arduino_programs
+    status
+        git timestamp
+        scripts version
+
+====== U S A G E ======
+
+
+import thirtybirds as tb
+tb.init() # automatically grabs config
+tb.update.init() # occludes old code with new
+
+
+tb.network.init()
+tb.network.subscribe_to_topic(topic)
+tb.network.publish(topic, message)
+tb.network.bind(topic, function_reference) # network events and message events can both be topics in the same system.
+
+
+
