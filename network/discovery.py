@@ -17,6 +17,7 @@ But in the larger Thirtybirds system, testing at the zmq/pubsub level tests the 
 import json
 import socket
 import struct
+import sys
 import threading
 import time
 import yaml
