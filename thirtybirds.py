@@ -61,7 +61,8 @@ def init(app_settings, app_base_path):
         heartbeat_interval = settings.Network.heartbeat_interval,
         reporting_paramaters = settings.Reporting
         )
-                    
+            
+    """        
     thirtybirds_update.init(
         THIRTYBIRDS_BASE_PATH, 
         settings.Reporting, 
@@ -79,7 +80,6 @@ def init(app_settings, app_base_path):
         settings.Update_App.branch,
         connection_instance.publish_to_topic
         )
-    """
     return {
         "network":connection_instance,
         "thirtybirds_update":thirtybirds_update,
