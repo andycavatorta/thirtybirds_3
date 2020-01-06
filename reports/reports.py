@@ -34,7 +34,7 @@ class Exceptions():
         if CONFIG["publish_as_topic"]:
             CONFIG["publish_method"]("exception", parsed_exception)
         if CONFIG["log_to_file"]:
-            logging.error("fdsaasdf")
+            logging.error(repr(parsed_exception))
 
     def parse(self, exc_info):
         exc_type, exc_value, exc_traceback = exc_info

@@ -13,8 +13,7 @@ git clone git@github.com:andycavatorta/thirtybirds_3.git
 
 # install python libs
 sudo apt install hddtemp lm-sensors
-sudo apt install python-dev
-sudo apt install python-yaml
+sudo apt install python3-dev
 sudo apt install libtool pkg-config build-essential autoconf automake
 
 # install 0MQ
@@ -35,7 +34,7 @@ cd ..
 
 sudo ldconfig
 sudo pip3 install pyzmq
-
+pip3 install pyyaml
 #sudo pip install mido
 #sudo apt install libportmidi-dev
 #sudo pip install enum34
