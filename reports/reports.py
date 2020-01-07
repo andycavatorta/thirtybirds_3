@@ -15,6 +15,7 @@ import logging
 import os
 import re
 import sys
+from datetime import datetime
 import traceback
 
 TB_ROOT_DIRECTORY = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
@@ -47,6 +48,7 @@ class Exceptions():
         method = re.sub(" in ","",method,count=1)
         path = os.path.realpath(__file__)
         return {
+            "exception_time":datetime.now().strftime("%m/%d/%Y %H:%M:%S"),
             "exception_path":path,
             "exception_filename":filename,
             "exception_method":method,
